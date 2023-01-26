@@ -2,43 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour, IDamageable
+public class Enemy : MonoBehaviour
 {
-    Rigidbody2D rb;
-    public float Health
+    public float damage;
+    public float knockbackForce;
+
+    void OnCollisionEnter2D(Collision2D col)
     {
-        set
+        IDamageable damageable = col.collider.GetComponent<IDamageable>();
+
+        if(damageable != null)
         {
-            _health = value;
+            Collider2D collider = col.collider;
+            // Calculate direction between character and enemy
+            Vector3 position = transform.position;
 
-            if(_health <= 0)
-            {
-                Death();
-            }
+            Vector2 direction = (Vector2) (collider.gameObject.transform.position - position).normalized;
+            Vector2 knockback = direction * knockbackForce;
+            damageable.OnHit(damage, knockback);
         }
-
-        get
-        {
-            return _health;
-        }
-    }
-    public float _health;
-
-    void Start() 
-    {
-        rb = GetComponent<Rigidbody2D>();
-    }
-
-    public void OnHit(float damage, Vector2 knockback)
-    {
-        Health -= damage;
-
-        // Apply force to slime
-        rb.AddForce(knockback);
-    }
-
-    void Death()
-    {
-        Destroy(gameObject);
     }
 }

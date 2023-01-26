@@ -86,16 +86,16 @@ public class SwordHitbox : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collider)
     {
-        IDamageable damageableObject = collider.GetComponent<IDamageable>();
+        IDamageable damageable = collider.GetComponent<IDamageable>();
 
-        if(damageableObject != null)
+        if(damageable != null)
         {
             // Calculate direction between character and enemy
             Vector3 parentPosition = transform.parent.position;
 
             Vector2 direction = (Vector2) (collider.gameObject.transform.position - parentPosition).normalized;
             Vector2 knockback = direction * knockbackForce;
-            damageableObject.OnHit(primaryDamage, knockback);
+            damageable.OnHit(primaryDamage, knockback);
         }
         else
         {

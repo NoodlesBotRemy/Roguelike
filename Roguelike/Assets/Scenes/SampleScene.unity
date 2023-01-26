@@ -451,24 +451,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a8a05de0ac134f4f9d01bef6b9da077, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &1250695012 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1712104707542870109, guid: 16daa6762b0d9364f8192f3e430f658b, type: 3}
-  m_PrefabInstance: {fileID: 3217341891873460953}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1250695018
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1250695012}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 08ee4cc6faccbfd4884cc3052d7821fa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _health: 5
 --- !u!1001 &1580036624
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -486,7 +468,7 @@ PrefabInstance:
       objectReference: {fileID: 1005417221}
     - target: {fileID: 2911579089347619069, guid: c160cebb74cdd954498b7ebb9b0bdf25, type: 3}
       propertyPath: knockbackForce
-      value: 5000
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 4318621767226621025, guid: c160cebb74cdd954498b7ebb9b0bdf25, type: 3}
       propertyPath: m_Name
