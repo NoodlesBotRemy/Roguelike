@@ -20,9 +20,12 @@ public class PlayerController : MonoBehaviour
         RIGHT
     }
     public CurrentDirection currentDirection;
+    public GameObject swordHitbox;
+    SwordHitbox swordScript;
     Rigidbody2D rb;
     Animator animator;
     SpriteRenderer spriteRenderer;
+    Collider2D swordCollider;
     Vector2 moveInput = Vector2.zero;
 
     // Animation states
@@ -60,6 +63,8 @@ public class PlayerController : MonoBehaviour
         isAttacking = false;
         isAttackPressed = false;
         currentDirection = CurrentDirection.DOWN;
+        swordCollider = swordHitbox.GetComponent<Collider2D>();
+        swordScript = swordHitbox.GetComponent<SwordHitbox>();
         current_animation = idle_animations;
     }
 
@@ -132,6 +137,7 @@ public class PlayerController : MonoBehaviour
     void OnPrimary()
     {
         isAttackPressed = true;
+        swordScript.hitboxShape();
     }
 
     void LockMovement()
