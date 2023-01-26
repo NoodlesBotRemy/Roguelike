@@ -19,25 +19,37 @@ public class PlayerController : MonoBehaviour
         LEFT,
         RIGHT
     }
-    CurrentDirection currentDirection;
+    public CurrentDirection currentDirection;
     Rigidbody2D rb;
     Animator animator;
     SpriteRenderer spriteRenderer;
     Vector2 moveInput = Vector2.zero;
 
     // Animation states
-    const string IDLE_UP = "idle_up";
-    const string IDLE_DOWN = "idle_down";
-    const string IDLE_LEFT = "idle_left";
-    const string IDLE_RIGHT = "idle_right";
-    const string WALK_UP = "walk_up";
-    const string WALK_DOWN = "walk_down";
-    const string WALK_LEFT = "walk_left";
-    const string WALK_RIGHT = "walk_right";
-    const string ATTACK_UP = "attack_up";
-    const string ATTACK_DOWN = "attack_down";
-    const string ATTACK_LEFT = "attack_left";
-    const string ATTACK_RIGHT = "attack_right";
+    Dictionary<CurrentDirection, string> current_animation = new Dictionary<CurrentDirection, string>();
+
+    Dictionary<CurrentDirection, string> idle_animations = new Dictionary<CurrentDirection, string>()
+    {
+        {CurrentDirection.UP, "idle_up"},
+        {CurrentDirection.DOWN, "idle_down"},
+        {CurrentDirection.LEFT, "idle_left"},
+        {CurrentDirection.RIGHT, "idle_right"}
+    };
+
+    Dictionary<CurrentDirection, string> walk_animations = new Dictionary<CurrentDirection, string>()
+    {
+        {CurrentDirection.UP, "walk_up"},
+        {CurrentDirection.DOWN, "walk_down"},
+        {CurrentDirection.LEFT, "walk_left"},
+        {CurrentDirection.RIGHT, "walk_right"}
+    };
+    Dictionary<CurrentDirection, string> attack_animations = new Dictionary<CurrentDirection, string>()
+    {
+        {CurrentDirection.UP, "attack_up"},
+        {CurrentDirection.DOWN, "attack_down"},
+        {CurrentDirection.LEFT, "attack_left"},
+        {CurrentDirection.RIGHT, "attack_right"}
+    };
 
     // Start is called before the first frame update
     void Start()
@@ -48,6 +60,7 @@ public class PlayerController : MonoBehaviour
         isAttacking = false;
         isAttackPressed = false;
         currentDirection = CurrentDirection.DOWN;
+        current_animation = idle_animations;
     }
 
     // Update is called once per frame
@@ -69,24 +82,21 @@ public class PlayerController : MonoBehaviour
             // Change animation state to movement
             if(moveInput.y < 0)
             {
-                ChangeAnimationState(WALK_DOWN);
                 currentDirection = CurrentDirection.DOWN;
             }
             else if(moveInput.y > 0)
             {
-                ChangeAnimationState(WALK_UP);
                 currentDirection = CurrentDirection.UP;
             }
             else if(moveInput.x < 0)
             {
-                ChangeAnimationState(WALK_LEFT);
                 currentDirection = CurrentDirection.LEFT;
             }
             else if(moveInput.x > 0)
             {
-                ChangeAnimationState(WALK_RIGHT);
                 currentDirection = CurrentDirection.RIGHT;
             }
+            current_animation = walk_animations;
         }
         else
         {
@@ -96,22 +106,7 @@ public class PlayerController : MonoBehaviour
             // Change animation state to idle
             if(!isAttacking)
             {
-                if(currentDirection == CurrentDirection.UP)
-                {
-                    ChangeAnimationState(IDLE_UP);
-                }
-                else if(currentDirection == CurrentDirection.DOWN)
-                {
-                    ChangeAnimationState(IDLE_DOWN);
-                }
-                else if(currentDirection == CurrentDirection.RIGHT)
-                {
-                    ChangeAnimationState(IDLE_RIGHT);
-                }
-                else if(currentDirection == CurrentDirection.LEFT)
-                {
-                    ChangeAnimationState(IDLE_LEFT);
-                }
+                current_animation = idle_animations;
             }
         }
 
@@ -122,24 +117,11 @@ public class PlayerController : MonoBehaviour
             if(!isAttacking)
             {
                 isAttacking = true;
-                if(currentDirection == CurrentDirection.UP)
-                {
-                    ChangeAnimationState(ATTACK_UP);
-                }
-                else if(currentDirection == CurrentDirection.DOWN)
-                {
-                    ChangeAnimationState(ATTACK_DOWN);
-                }
-                else if(currentDirection == CurrentDirection.LEFT)
-                {
-                    ChangeAnimationState(ATTACK_LEFT);
-                }
-                else if(currentDirection == CurrentDirection.RIGHT)
-                {
-                    ChangeAnimationState(ATTACK_RIGHT);
-                }
+                current_animation = attack_animations;
             }
         }
+
+        ChangeAnimationState(current_animation[currentDirection]);
     }
 
     void OnMove(InputValue moveValue)
