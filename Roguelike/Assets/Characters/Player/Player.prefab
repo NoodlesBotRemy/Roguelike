@@ -134,6 +134,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 150
   maxSpeed: 8
+  dashSpeed: 18
+  dashLength: 0.2
+  dashCooldown: 0.3
   idleFriction: 0.9
   currentState: 
   canMove: 1

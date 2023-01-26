@@ -7,6 +7,11 @@ public class PlayerController : MonoBehaviour
 {
     public float moveSpeed = 150f;
     public float maxSpeed = 8f;
+    public float dashSpeed;
+    public float dashLength = .5f;
+    public float dashCooldown = 1f;
+    private float dashCounter;
+    private float dashCoolCounter;
     public float idleFriction = 0.9f;
     public string currentState;
     public bool canMove = true;
@@ -71,7 +76,21 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(dashCounter > 0)
+        {
+            dashCounter -= Time.deltaTime;
 
+            if(dashCounter <= 0)
+            {
+                maxSpeed = 8f;
+                dashCoolCounter = dashCooldown;
+            }
+        }
+
+        if(dashCoolCounter > 0)
+        {
+            dashCoolCounter -= Time.deltaTime;
+        }
     }
 
     void FixedUpdate()
@@ -165,5 +184,14 @@ public class PlayerController : MonoBehaviour
         animator.Play(newState);
 
         currentState = newState;
+    }
+
+    void OnDash()
+    {
+        if(dashCoolCounter <= 0 && dashCounter <= 0)
+        {
+            maxSpeed = dashSpeed;
+            dashCounter = dashLength;
+        }
     }
 }

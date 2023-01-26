@@ -548,10 +548,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy
       objectReference: {fileID: 0}
-    - target: {fileID: 5231600156032061312, guid: 16daa6762b0d9364f8192f3e430f658b, type: 3}
-      propertyPath: m_LinearDrag
-      value: 25
-      objectReference: {fileID: 0}
     - target: {fileID: 6808591383879192807, guid: 16daa6762b0d9364f8192f3e430f658b, type: 3}
       propertyPath: m_RootOrder
       value: 2
