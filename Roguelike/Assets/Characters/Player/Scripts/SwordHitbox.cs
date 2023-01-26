@@ -91,7 +91,7 @@ public class SwordHitbox : MonoBehaviour
         if(damageableObject != null)
         {
             // Calculate direction between character and enemy
-            Vector3 parentPosition = gameObject.GetComponentInParent<Transform>().position;
+            Vector3 parentPosition = transform.parent.position;
 
             Vector2 direction = (Vector2) (collider.gameObject.transform.position - parentPosition).normalized;
             Vector2 knockback = direction * knockbackForce;
